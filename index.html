@@ -276,14 +276,14 @@
         <!-- 数据源状态 -->
         <div class="data-source-status">
             <div id="dataStatus">
-                未检测到数据源，请上传数据文件<br>
+                未检测到数据源，请导入数据文件<br>
                 <small style="color: #666;">支持的文件格式：CSV (.csv)<br>
                 必要的列：产品简称、日期、净值、7日年化收益(%)、30日年化收益(%)、近三月年化收益(%)</small>
             </div>
             <div>
                 <input type="file" id="fileInput" accept=".csv" style="display: none;">
                 <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
-                    上传数据
+                    导入数据
                 </button>
                 <button class="btn btn-secondary" id="clearData">
                     清除数据
@@ -298,7 +298,7 @@
             <div class="form-group">
                 <label for="productSelect">选择产品</label>
                 <select id="productSelect" disabled>
-                    <option value="">请先上传数据</option>
+                    <option value="">请先导入数据</option>
                 </select>
                 </div>
                 <div class="form-group">
@@ -1042,11 +1042,11 @@
         },
     
         initEventListeners() {
-            // 文件上传
+            // 文件导入
             document.getElementById('fileInput').addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (!file || !file.name.endsWith('.csv')) {
-                    alert('请上传CSV格式的文件');
+                    alert('请导入CSV格式的文件');
                     e.target.value = '';
                     return;
                 }
@@ -1144,7 +1144,7 @@
                 try {
                     const data = await DataManager.loadData();
                     if (!data) {
-                        alert('没有可用的数据，请先上传数据文件');
+                        alert('没有可用的数据，请先导入数据文件');
                         return;
                     }
 
