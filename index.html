@@ -103,9 +103,7 @@
         }
 
         .form-group label {
-            margin-bottom: 4px;
-            color: #666;
-            font-weight: 500;
+            display: none;
         }
 
         /* 统一输入框样式 */
@@ -146,57 +144,58 @@
             flex: 1;
         }
 
+        /* 修改显示选项样式 */
         .display-options {
             background-color: #f8f9fa;
-            padding: 12px 20px;  /* 增加左右内边距 */
+            padding: 10px 20px;
             border-radius: 4px;
             margin-bottom: 10px;
+            min-height: 42px;
+            display: flex;
+            align-items: center;
         }
 
+        /* 修改显示选项头部样式 */
         .display-options-header {
             display: flex;
             align-items: center;
+            width: 100%; /* 确保占据全宽 */
         }
 
+        /* 修改显示选项的标题样式 */
+        .display-options label.title {
+            font-size: 13px;
+            color: #666;
+            font-weight: normal;
+            white-space: nowrap;
+            line-height: 24px;
+            margin-right: 30px;
+            flex-shrink: 0; /* 防止标题被压缩 */
+        }
+
+        /* 修改复选框组样式 */
         .display-options .checkbox-group {
             display: flex;
             flex: 1;
-            justify-content: space-between;
             align-items: center;
-            margin-left: 30px;
         }
 
-        .display-options label.title {
-            margin: 0;
-            font-size: 13px;  /* 统一较小字体 */
-            color: #666;      /* 统一颜色 */
-            font-weight: normal;
-            min-width: fit-content;
-            line-height: 24px;
-        }
-
-        .checkbox-group {
+        /* 修改复选框容器样式 */
+        .checkbox-group .main-checkboxes {
             display: flex;
-            justify-content: space-between;  /* 均匀分布 */
-            flex: 1;  /* 占据剩余空间 */
+            width: 100%;
+            justify-content: space-between; /* 两端对齐 */
             align-items: center;
-            margin: 0;
         }
 
+        /* 统一复选框标签样式 */
         .checkbox-label {
             display: flex;
             align-items: center;
-            gap: 6px;  /* 减小复选框和文字之间的间距 */
+            gap: 6px;
             font-size: 13px;
             color: #666;
-            white-space: nowrap;  /* 防止文字换行 */
-        }
-
-        .checkbox-label input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            margin: 0;
-            vertical-align: middle;  /* 复选框垂直居中 */
+            white-space: nowrap;
         }
 
         .action-buttons {
@@ -370,32 +369,33 @@
             margin: 0;
         }
 
-        /* 修改图表配置的样式 */
+        /* 修改图表配置样式 */
         .chart-config {
             background-color: #f8f9fa;
-            padding: 12px 20px;
+            padding: 10px 20px;  /* 减小上下内边距 */
             border-radius: 4px;
             margin-top: 10px;
-            min-height: 60px; /* 添加最小高度确保足够的空间 */
+            margin-bottom: 10px;
+            min-height: 42px;  /* 减小最小高度 */
             display: flex;
-            align-items: center; /* 确保垂直居中 */
+            align-items: center;
         }
 
         .chart-config-title {
             font-size: 13px;
-            color: #666;      /* 与显示选项保持一致 */
+            color: #666;
             font-weight: normal;
             margin-right: 30px;
             white-space: nowrap;
-            line-height: 32px;
+            line-height: 24px;
         }
 
         .chart-config-items {
             display: flex;
             flex: 1;
-            justify-content: space-between;
-            gap: 15px;
+            justify-content: space-between;  /* 恢复均匀分布 */
             align-items: center;
+            gap: 15px;
         }
 
         .chart-config .form-group {
@@ -416,8 +416,9 @@
         }
 
         .chart-config .form-group label {
+            display: block;  /* 或者使用flex，保持原来的样式 */
             font-size: 13px;
-            color: #666;      /* 与显示选项保持一致 */
+            color: #666;
             font-weight: normal;
             margin: 0;
             flex-shrink: 0;
@@ -434,6 +435,33 @@
             line-height: 32px;
             font-size: 13px;
             color: #666;      /* 与显示选项保持一致 */
+        }
+
+        /* 统一内部元素的行高和对齐方式 */
+        .display-options label.title,
+        .chart-config-title {
+            font-size: 13px;
+            color: #666;
+            font-weight: normal;
+            margin-right: 30px;
+            white-space: nowrap;
+            line-height: 24px;
+        }
+
+        /* 只隐藏配置面板中的下拉框标签 */
+        .config-panel .form-group label {
+            display: none;
+        }
+
+        /* 保持坐标系设置中的标签可见 */
+        .chart-config .form-group label {
+            display: block;  /* 或者使用flex，保持原来的样式 */
+            font-size: 13px;
+            color: #666;
+            font-weight: normal;
+            margin: 0;
+            flex-shrink: 0;
+            line-height: 32px;
         }
     </style>
 </head>
@@ -467,12 +495,13 @@
                 <div class="form-group">
                     <label for="productSelect">选择产品</label>
                     <select id="productSelect" disabled>
-                        <option value="">请先导入数据</option>
+                        <option value="">请选择产品</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="yieldType">收益率类型</label>
                     <select id="yieldType">
+                        <option value="">请选择收益率类型</option>
                         <option value="7日年化收益(%)">7日年化收益(%)</option>
                         <option value="30日年化收益(%)">30日年化收益(%)</option>
                         <option value="近三月年化收益(%)">近三月年化收益(%)</option>
@@ -510,30 +539,32 @@
             <div class="display-options-header">
                 <label class="title">显示选项</label>
                 <div class="checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="showNavStart">
-                        净值起点值
-                    </label>
-                    <label class="checkbox-label">
-                    <input type="checkbox" id="showNavMax">
-                        净值最大值
-                    </label>
-                    <label class="checkbox-label">
-                    <input type="checkbox" id="showYieldMax" checked>
-                        收益率最大值
-                    </label>
-                    <label class="checkbox-label">
-                    <input type="checkbox" id="showYieldMin" checked>
-                        收益率最小值
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="showColoredAnnotations">
-                        标注点使用不同颜色
-                    </label>
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="showFullNavDecimals">
-                        净值8位小数
-                    </label>
+                    <div class="main-checkboxes">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showNavStart">
+                            净值起点值
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showNavMax">
+                            净值最大值
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showYieldMax" checked>
+                            收益率最大值
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showYieldMin" checked>
+                            收益率最小值
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showColoredAnnotations">
+                            标注点使用不同颜色
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showFullNavDecimals">
+                            净值8位小数
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
