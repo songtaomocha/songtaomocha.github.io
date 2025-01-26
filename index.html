@@ -85,6 +85,7 @@
             margin-bottom: 8px;
             display: flex;
             flex-direction: column;
+            min-height: 70px;  /* 确保所有表单组高度一致 */
         }
 
         .form-group label {
@@ -104,6 +105,7 @@
             font-size: 14px;
             width: 100%;
             transition: all 0.2s;
+            margin-top: 4px;  /* 统一顶部间距 */
         }
 
         select:hover, input[type="number"]:hover, input[type="text"]:hover, input[type="date"]:hover {
@@ -313,27 +315,20 @@
             gap: 10px;
             margin-left: 0;
             padding-left: 0;
+            margin-top: 4px;  /* 与其他输入框保持一致的顶部间距 */
         }
 
         .date-range-inputs input[type="date"] {
-            width: 150px;
-            padding: 6px 12px;
-            font-size: 14px;
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            transition: all 0.2s ease-in-out;
+            height: 38px;  /* 与其他输入框保持一致的高度 */
+            margin-top: 0;  /* 移除额外的顶部间距，因为已经在容器上设置了 */
+            width: 150px;  /* 在桌面端保持合适的宽度 */
         }
 
-        .date-range-inputs input[type="date"]:hover,
-        .date-range-inputs input[type="date"]:focus {
-            color: #495057;
-            background-color: #fff;
-            border-color: #2952A3;  /* 使用蓝色主题色 */
-            outline: none;
-            box-shadow: none; 
+        /* 移动端特殊处理 */
+        @media (max-width: 768px) {
+            .date-range-inputs input[type="date"] {
+                width: 100%;  /* 在移动端占满宽度 */
+            }
         }
 
         .date-range-inputs span {
@@ -1584,23 +1579,19 @@
         return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     };
 
-    // 修改日期范围选择的样式和默认值
+    // 修改日期范围选择的初始化代码
     document.addEventListener('DOMContentLoaded', function() {
         // 设置默认起始日期为2024年8月1日
-        document.getElementById('startDate').value = '2024-08-01';
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
         
-        // 添加样式以对齐日期选择框
-        const style = document.createElement('style');
-        style.textContent = `
-            .date-range-inputs {
-                margin-left: 0;  /* 确保与时间范围选择框对齐 */
-                padding-left: 0;
-            }
-            #startDate, #endDate {
-                margin-top: 5px;
-            }
-        `;
-        document.head.appendChild(style);
+        // 设置默认起始日期
+        startDateInput.value = '2024-08-01';
+        
+        // 设置默认结束日期为当前日期
+        const today = new Date();
+        const formattedToday = today.toISOString().split('T')[0];
+        endDateInput.value = formattedToday;
     });
 
     // 添加按钮颜色
