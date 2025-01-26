@@ -73,6 +73,7 @@
             display: flex;
             gap: 20px;
             margin-bottom: 8px;
+            min-height: 70px;  /* 添加最小高度确保一致性 */
         }
 
         .config-row .form-group {
@@ -241,6 +242,23 @@
             .data-source-status {
                 flex-direction: column;
                 gap: 10px;
+            }
+
+            /* 在移动设备上强制换行显示 */
+            .config-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            /* 确保表单组在移动设备上占满宽度 */
+            .config-row .form-group {
+                width: 100%;
+                min-height: auto;  /* 移动设备上不需要固定高度 */
+            }
+
+            /* 日期范围组的特殊处理 */
+            #dateRangeGroup {
+                margin-top: 10px;
             }
 
             /* 在移动设备上，日期范围选择组需要特殊处理 */
