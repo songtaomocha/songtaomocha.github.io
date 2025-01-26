@@ -550,77 +550,59 @@
             
             .chart-config-items {
                 width: 100%;
-            }
-            
-            .chart-config .form-group {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-                margin-bottom: 12px;
-                flex-wrap: wrap;  /* 允许在需要时换行 */
-            }
-            
-            .chart-config .form-group label {
-                flex: 1;
-                margin-right: 10px;
-                white-space: normal;  /* 允许文字换行 */
-                line-height: 1.4;
-                min-width: 100px;  /* 确保标签有足够空间 */
-            }
-            
-            .chart-config .form-group input {
-                width: 120px;  /* 给输入框固定宽度 */
-                max-width: 100%;
-                text-align: center;
-                flex-shrink: 0;  /* 防止输入框被压缩 */
-            }
-            
-            /* 标题样式优化 */
-            .display-options label.title,
-            .chart-config-title {
-                display: block;
-                width: 100%;
-                margin-bottom: 15px;
-                padding-bottom: 8px;
-                border-bottom: 1px solid #eee;
-            }
-            
-            /* 确保所有文本可以正常换行 */
-            .display-options,
-            .chart-config {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                hyphens: auto;
-            }
-            
-            /* 优化间距 */
-            .display-options,
-            .chart-config {
-                margin-bottom: 15px;
-            }
-            
-            /* 图表容器适配 */
-            .charts-container {
-                grid-template-columns: 1fr;
+                flex-direction: column;
                 gap: 15px;
             }
             
-            #navChart, #yieldChart {
-                min-height: 300px;
+            .chart-config .form-group {
+                display: grid;
+                grid-template-columns: 1fr 120px;
+                gap: 10px;
                 width: 100%;
+                margin: 0;
+                padding: 8px 0;
             }
             
-            /* 按钮适配 */
+            .chart-config .form-group label {
+                font-size: 14px;
+                margin: 0;
+                line-height: 44px; /* 与输入框高度一致 */
+                white-space: normal;
+                color: #666;
+            }
+            
+            .chart-config .form-group input {
+                width: 120px;
+                height: 44px;
+                padding: 0 10px;
+                font-size: 16px;
+                text-align: center;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            
+            /* 按钮优化 */
             .action-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                padding: 15px 0;
             }
             
             .action-buttons .btn {
-                width: 100%;
                 margin: 0;
+                height: 44px;
+                font-size: 16px;
+                border-radius: 6px;
+                width: 100%;
+            }
+            
+            /* 确保按钮文字不换行 */
+            .action-buttons .btn {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding: 0 15px;
             }
             
             /* 日期输入适配 */
@@ -668,17 +650,23 @@
             }
             
             .chart-config .form-group {
-                flex-direction: column;
-                align-items: flex-start;
+                grid-template-columns: 1fr;
+                gap: 5px;
             }
             
             .chart-config .form-group label {
-                margin-bottom: 5px;
-                width: 100%;
+                line-height: 1.4;
+                padding: 5px 0;
             }
             
             .chart-config .form-group input {
                 width: 100%;
+            }
+            
+            /* 超小屏幕下按钮改为垂直排列 */
+            .action-buttons {
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
         }
 
