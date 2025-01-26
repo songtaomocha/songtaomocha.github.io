@@ -467,214 +467,142 @@
         /* 在 style 标签最后添加以下移动端响应式样式 */
 
         @media screen and (max-width: 768px) {
-            /* 调整容器宽度，充分利用屏幕空间 */
+            /* 移动端整体布局调整 */
+            body {
+                padding: 0;
+                background-color: #f5f5f5;
+            }
+
+            /* 最外层容器调整 */
             .container {
                 max-width: 100%;
-                padding: 10px;
                 margin: 0;
+                padding: 0;
                 border-radius: 0;
                 box-shadow: none;
+                background-color: transparent;
             }
-            
-            /* 标题适配 */
+
+            /* 内部区块通用样式 */
+            .data-source-status,
+            .config-panel,
+            .display-options,
+            .chart-config,
+            .action-buttons,
+            .charts-container {
+                margin: 10px;
+                border-radius: 8px;
+                background-color: #fff;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+            /* 标题区域 */
             h1 {
                 font-size: 20px;
-                margin: 10px 0;
+                margin: 0;
+                padding: 15px 0;
+                background-color: #fff;
             }
-            
-            /* 数据源状态适配 */
+
+            /* 数据源状态区域 */
             .data-source-status {
-                flex-direction: column;
-                gap: 10px;
-                padding: 10px;
-            }
-            
-            .data-source-status small {
-                display: block;
-                margin: 5px 0;
-            }
-            
-            .data-source-status small::after {
-                content: none;
-            }
-            
-            /* 配置面板适配 */
-            .config-row {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .config-row .form-group {
-                min-height: auto;
-                margin-bottom: 10px;
-            }
-            
-            /* 显示选项适配 */
-            .display-options {
-                padding: 10px;
-            }
-            
-            .display-options-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .display-options label.title {
-                margin-bottom: 10px;
-            }
-            
-            .checkbox-group .main-checkboxes {
-                flex-direction: column;
-                gap: 12px;
-                align-items: stretch;
-                width: 100%;
-            }
-            
-            .checkbox-label {
-                display: flex;
-                align-items: center;
-                padding: 8px 0;
-                font-size: 14px;
-                line-height: 1.4;
-                width: 100%;
-                word-break: break-word;
-            }
-            
-            .checkbox-label input[type="checkbox"] {
-                margin-right: 10px;
-                flex-shrink: 0;
-            }
-            
-            /* 图表配置适配 */
-            .chart-config {
                 padding: 15px;
             }
-            
+
+            /* 配置面板区域 */
+            .config-panel {
+                padding: 15px;
+            }
+
+            /* 显示选项区域 */
+            .display-options {
+                padding: 15px;
+                margin-top: 10px;
+                background-color: #fff;
+            }
+
+            /* 坐标系设置区域 */
+            .chart-config {
+                padding: 15px;
+                margin-top: 10px;
+                background-color: #fff;
+            }
+
             .chart-config-items {
                 width: 100%;
-                flex-direction: column;
-                gap: 15px;
             }
-            
-            /* 优化坐标系设置中的标签显示 */
+
             .chart-config .form-group {
                 display: grid;
-                grid-template-columns: minmax(130px, 1.2fr) 100px; /* 调整列宽比例 */
+                grid-template-columns: minmax(130px, 1.2fr) 100px;
                 gap: 10px;
                 align-items: center;
                 padding: 8px 0;
             }
-            
-            .chart-config .form-group label {
-                font-size: 14px;
-                white-space: nowrap; /* 防止标签文字换行 */
-                overflow: hidden;
-                text-overflow: ellipsis;
-                line-height: 44px;
-                padding-right: 5px;
-            }
-            
+
             .chart-config .form-group input {
                 width: 100%;
                 min-width: 80px;
                 max-width: 100px;
-                height: 44px;
-                padding: 0 5px;
-                font-size: 16px;
-                text-align: center;
             }
-            
-            /* 优化按钮样式 */
+
+            /* 按钮区域 */
             .action-buttons {
+                padding: 15px;
+                margin-top: 10px;
+                background-color: #fff;
                 display: grid;
-                grid-template-columns: repeat(2, minmax(120px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
-                padding: 15px 0;
-                margin: 0 auto;
-                max-width: 100%;
             }
-            
+
             .action-buttons .btn {
                 width: 100%;
                 height: 44px;
                 font-size: 15px;
-                padding: 0 10px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                border-radius: 4px;
                 margin: 0;
             }
-            
-            /* 日期输入适配 */
-            .date-range-inputs {
-                flex-direction: column;
-                gap: 10px;
+
+            /* 图表容器区域 */
+            .charts-container {
+                padding: 15px;
+                margin-top: 10px;
+                background-color: #fff;
             }
-            
-            .date-range-inputs input[type="date"] {
+
+            #navChart, #yieldChart {
                 width: 100%;
-            }
-            
-            /* 输入框和选择器统一高度 */
-            select, input[type="number"], input[type="text"], input[type="date"] {
-                height: 44px; /* 增加移动端触控区域 */
-                font-size: 16px; /* 避免 iOS 自动放大 */
-            }
-            
-            /* 复选框标签优化 */
-            .checkbox-label {
-                font-size: 14px;
-                padding: 5px 0;
-            }
-            
-            /* 优化触控区域 */
-            input[type="checkbox"] {
-                width: 20px;
-                height: 20px;
+                min-height: 300px;
             }
         }
 
-        /* 针对超小屏幕的特别优化 */
+        /* 超小屏幕特别优化 */
         @media screen and (max-width: 360px) {
-            h1 {
-                font-size: 18px;
+            /* 减小边距以适应更小的屏幕 */
+            .data-source-status,
+            .config-panel,
+            .display-options,
+            .chart-config,
+            .action-buttons,
+            .charts-container {
+                margin: 8px;
+                padding: 12px;
             }
-            
-            .display-options label.title,
-            .chart-config-title {
-                font-size: 12px;
-            }
-            
-            .checkbox-label {
-                font-size: 13px;
-            }
-            
+
+            /* 坐标系设置在超小屏幕上改为垂直布局 */
             .chart-config .form-group {
-                grid-template-columns: 1fr; /* 在超小屏幕上改为垂直布局 */
+                grid-template-columns: 1fr;
                 gap: 5px;
             }
-            
-            .chart-config .form-group label {
-                white-space: normal; /* 允许文字换行 */
-                line-height: 1.4;
-                padding: 5px 0;
-            }
-            
+
             .chart-config .form-group input {
                 max-width: none;
                 width: 100%;
             }
-            
-            /* 超小屏幕下按钮垂直排列 */
+
+            /* 按钮在超小屏幕上垂直排列 */
             .action-buttons {
                 grid-template-columns: 1fr;
-                gap: 10px;
-                padding: 10px 0;
-            }
-            
-            .action-buttons .btn {
-                font-size: 14px;
             }
         }
 
