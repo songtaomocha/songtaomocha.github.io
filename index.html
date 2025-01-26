@@ -242,6 +242,31 @@
                 flex-direction: column;
                 gap: 10px;
             }
+
+            /* 在移动设备上，日期范围选择组需要特殊处理 */
+            .config-row .form-group#dateRangeGroup {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            /* 日期输入容器在移动设备上独占一行 */
+            .date-range-inputs {
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+                margin-top: 8px;
+            }
+
+            /* 日期输入框在移动设备上占满宽度 */
+            .date-range-inputs input[type="date"] {
+                width: 100%;
+            }
+
+            /* 日期范围中的分隔符样式 */
+            .date-range-inputs span {
+                align-self: center;
+                margin: 4px 0;
+            }
         }
 
         /* 增强的交互反馈 */
