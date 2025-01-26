@@ -5,11 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>产品净值与收益率图表生成器(推荐Chrome浏览器打开)</title>
     
-    <!-- xlsx.js库 -->
-    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+    <!-- 动态加载 JS 库 -->
+    <script>
+        // 加载 JS 文件的通用函数
+        function loadScript(cdnUrl, localPath) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                
+                // 先尝试加载 CDN 版本
+                script.src = cdnUrl;
+                script.onload = () => resolve();
+                script.onerror = () => {
+                    console.log(`CDN 加载失败，尝试加载本地文件: ${localPath}`);
+                    // CDN 加载失败时尝试本地文件
+                    script.src = localPath;
+                    script.onload = () => resolve();
+                    script.onerror = () => reject(new Error(`无法加载文件: ${localPath}`));
+                };
+                
+                document.head.appendChild(script);
+            });
+        }
 
-    <!-- plotly.js库 -->
-    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+        // 并行加载所有需要的库
+        Promise.all([
+            loadScript('https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js', 'xlsx.full.min.js'),
+            loadScript('https://cdn.plot.ly/plotly-2.24.1.min.js', 'plotly-2.24.1.min.js')
+        ]).catch(error => {
+            console.error('库加载失败:', error);
+            alert('加载必要的库文件失败，请确保网络连接正常或相关文件存在于本地目录。');
+        });
+    </script>
 
     <style>
         /* 全局样式 */
@@ -127,18 +153,21 @@
 
         .checkbox-label {
             display: flex;
-            align-items: center;
+            align-items: center;  /* 确保垂直居中对齐 */
             gap: 8px;
             cursor: pointer;
             font-size: 14px;
             color: #333;
             min-width: 150px;
+            height: 24px;  /* 设置固定高度 */
+            line-height: 24px;  /* 与高度相同，确保文字垂直居中 */
         }
 
         .checkbox-label input[type="checkbox"] {
             width: 16px;
             height: 16px;
             margin: 0;
+            vertical-align: middle;  /* 确保复选框垂直居中 */
         }
 
         .action-buttons {
@@ -359,6 +388,10 @@
                     <label class="checkbox-label">
                         <input type="checkbox" id="showColoredAnnotations">
                         标注点使用不同颜色
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="showFullNavDecimals">
+                        净值8位小数
                     </label>
                 </div>
             </div>
@@ -672,6 +705,7 @@
             const showNavStart = document.getElementById('showNavStart').checked;
             const showNavMax = document.getElementById('showNavMax').checked;
             const showColoredAnnotations = document.getElementById('showColoredAnnotations').checked;
+            const showFullDecimals = document.getElementById('showFullNavDecimals').checked;
             const markerSize = parseFloat(document.getElementById('markerSize').value) || this.config.markerSize;
             const navMarginX = parseFloat(document.getElementById('navMarginX').value) || this.config.marginX.nav;
             
@@ -744,19 +778,25 @@
                 }
             };
 
-            // 添加标注
+            // 在添加标注时检查小数位数设置
             if (values.length > 0) {
                 const annotations = [];
                 const markerSizes = Array(dates.length).fill(markerSize);
                 const markerColors = Array(dates.length).fill(this.config.lineColor);
                 const lastIndex = values.length - 1;
                 const maxIndex = values.indexOf(Math.max(...values));
+                const showFullDecimals = document.getElementById('showFullNavDecimals').checked;
+
+                // 格式化数值的函数
+                const formatValue = (value) => {
+                    return showFullDecimals ? value.toString() : value.toFixed(4);
+                };
 
                 // 始终标注最新值
                 annotations.push({
                     x: xValues[lastIndex],
                     y: values[lastIndex],
-                    text: values[lastIndex].toString(),
+                    text: formatValue(values[lastIndex]),
                     showarrow: false,
                     yshift: this.config.labelOffset.normal,
                     font: {
@@ -774,7 +814,7 @@
                     annotations.push({
                         x: xValues[maxIndex],
                         y: values[maxIndex],
-                        text: values[maxIndex].toString(),
+                        text: formatValue(values[maxIndex]),
                         showarrow: false,
                         yshift: this.config.labelOffset.max,
                         font: {
@@ -793,7 +833,7 @@
                     annotations.push({
                         x: xValues[0],
                         y: values[0],
-                        text: values[0].toString(),
+                        text: formatValue(values[0]),
                         showarrow: false,
                         yshift: this.config.labelOffset.min,
                         font: {
@@ -1237,7 +1277,7 @@
 
             if (!data) return;
     
-                // Safari 使用简化版本的界面更新，但保留产品选择功能
+                // Safari 使用简化版本的界面更新
                 if (isSafari()) {
                     const updateTime = await DataManager.getUpdateTime();
                     const products = DataProcessor.getProductList(data);
@@ -1310,7 +1350,7 @@
                 yieldType: document.getElementById('yieldType').value
             };
 
-            // 添加检查
+            // 检查
             const validProducts = ['蓝色宝', '收瑞盈'];
             const isValidProduct = validProducts.some(name => params.productName.includes(name));
             if (!isValidProduct) {
@@ -1403,6 +1443,7 @@
             document.getElementById('showYieldMax').checked = true;
             document.getElementById('showYieldMin').checked = true;
             document.getElementById('showColoredAnnotations').checked = false;
+            document.getElementById('showFullNavDecimals').checked = false;
 
             // 重置日期范围显示
             document.getElementById('recentDaysGroup').style.display = 'block';
