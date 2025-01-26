@@ -467,142 +467,226 @@
         /* 在 style 标签最后添加以下移动端响应式样式 */
 
         @media screen and (max-width: 768px) {
-            /* 移动端整体布局调整 */
-            body {
-                padding: 0;
-                background-color: #f5f5f5;
-            }
-
-            /* 最外层容器调整 */
+            /* 调整容器宽度，充分利用屏幕空间 */
             .container {
                 max-width: 100%;
+                width: 100%;
+                padding: 8px;
                 margin: 0;
-                padding: 0;
                 border-radius: 0;
                 box-shadow: none;
-                background-color: transparent;
+                box-sizing: border-box;
             }
-
-            /* 内部区块通用样式 */
-            .data-source-status,
-            .config-panel,
-            .display-options,
-            .chart-config,
-            .action-buttons,
-            .charts-container {
-                margin: 10px;
-                border-radius: 8px;
-                background-color: #fff;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            }
-
-            /* 标题区域 */
+            
+            /* 标题适配 */
             h1 {
                 font-size: 20px;
-                margin: 0;
-                padding: 15px 0;
-                background-color: #fff;
+                margin: 10px 0;
             }
-
-            /* 数据源状态区域 */
+            
+            /* 数据源状态适配 */
             .data-source-status {
-                padding: 15px;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
             }
-
-            /* 配置面板区域 */
-            .config-panel {
-                padding: 15px;
+            
+            .data-source-status small {
+                display: block;
+                margin: 5px 0;
             }
-
-            /* 显示选项区域 */
+            
+            .data-source-status small::after {
+                content: none;
+            }
+            
+            /* 配置面板适配 */
+            .config-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .config-row .form-group {
+                min-height: auto;
+                margin-bottom: 10px;
+            }
+            
+            /* 显示选项适配 */
             .display-options {
-                padding: 15px;
-                margin-top: 10px;
-                background-color: #fff;
+                padding: 10px;
             }
-
-            /* 坐标系设置区域 */
-            .chart-config {
-                padding: 15px;
-                margin-top: 10px;
-                background-color: #fff;
+            
+            .display-options-header {
+                flex-direction: column;
+                align-items: flex-start;
             }
-
-            .chart-config-items {
+            
+            .display-options label.title {
+                margin-bottom: 10px;
+            }
+            
+            .checkbox-group .main-checkboxes {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
                 width: 100%;
             }
-
-            .chart-config .form-group {
-                display: grid;
-                grid-template-columns: minmax(130px, 1.2fr) 100px;
-                gap: 10px;
+            
+            .checkbox-label {
+                display: flex;
                 align-items: center;
                 padding: 8px 0;
-            }
-
-            .chart-config .form-group input {
+                font-size: 14px;
+                line-height: 1.4;
                 width: 100%;
-                min-width: 80px;
-                max-width: 100px;
+                word-break: break-word;
             }
-
-            /* 按钮区域 */
-            .action-buttons {
-                padding: 15px;
-                margin-top: 10px;
-                background-color: #fff;
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
+            
+            .checkbox-label input[type="checkbox"] {
+                margin-right: 10px;
+                flex-shrink: 0;
+            }
+            
+            /* 图表配置适配 */
+            .chart-config {
+                padding: 12px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .chart-config-items {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .chart-config .form-group {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
                 gap: 10px;
+                padding: 4px 0;
+            }
+            
+            .chart-config .form-group label {
+                flex: 1;
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 40px;
+                margin: 0;
+                padding: 0;
+                min-width: 0;
+            }
+            
+            .chart-config .form-group input {
+                width: 80px;
+                height: 40px;
+                padding: 0 8px;
+                font-size: 15px;
+                text-align: center;
+                flex-shrink: 0;
             }
 
-            .action-buttons .btn {
+            /* 按钮容器优化 */
+            .action-buttons {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                padding: 15px 8px;
                 width: 100%;
-                height: 44px;
+                box-sizing: border-box;
+            }
+            
+            .action-buttons .btn {
+                flex: 1;
+                height: 40px;
                 font-size: 15px;
+                padding: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-width: 0;
                 margin: 0;
             }
-
-            /* 图表容器区域 */
-            .charts-container {
-                padding: 15px;
-                margin-top: 10px;
-                background-color: #fff;
+            
+            /* 日期输入适配 */
+            .date-range-inputs {
+                flex-direction: column;
+                gap: 10px;
             }
-
-            #navChart, #yieldChart {
+            
+            .date-range-inputs input[type="date"] {
                 width: 100%;
-                min-height: 300px;
+            }
+            
+            /* 输入框和选择器统一高度 */
+            select, input[type="number"], input[type="text"], input[type="date"] {
+                height: 44px; /* 增加移动端触控区域 */
+                font-size: 16px; /* 避免 iOS 自动放大 */
+            }
+            
+            /* 复选框标签优化 */
+            .checkbox-label {
+                font-size: 14px;
+                padding: 5px 0;
+            }
+            
+            /* 优化触控区域 */
+            input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
             }
         }
 
-        /* 超小屏幕特别优化 */
+        /* 针对超小屏幕的特别优化 */
         @media screen and (max-width: 360px) {
-            /* 减小边距以适应更小的屏幕 */
-            .data-source-status,
-            .config-panel,
-            .display-options,
-            .chart-config,
-            .action-buttons,
-            .charts-container {
-                margin: 8px;
-                padding: 12px;
+            h1 {
+                font-size: 18px;
             }
-
-            /* 坐标系设置在超小屏幕上改为垂直布局 */
+            
+            .display-options label.title,
+            .chart-config-title {
+                font-size: 12px;
+            }
+            
+            .checkbox-label {
+                font-size: 13px;
+            }
+            
+            .chart-config {
+                padding: 10px;
+            }
+            
             .chart-config .form-group {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: stretch;
                 gap: 5px;
             }
-
-            .chart-config .form-group input {
-                max-width: none;
-                width: 100%;
+            
+            .chart-config .form-group label {
+                line-height: 1.4;
+                padding: 4px 0;
             }
-
-            /* 按钮在超小屏幕上垂直排列 */
+            
+            .chart-config .form-group input {
+                width: 100%;
+                height: 36px;
+            }
+            
+            /* 超小屏幕按钮垂直排列 */
             .action-buttons {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                padding: 10px 6px;
+            }
+            
+            .action-buttons .btn {
+                width: 100%;
+                height: 36px;
+                font-size: 14px;
             }
         }
 
