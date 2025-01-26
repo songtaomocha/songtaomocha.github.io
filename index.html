@@ -403,12 +403,12 @@
                            onchange="ChartRenderer.config.xAxisTicks = parseInt(this.value); UIController.updateCharts();">
                 </div>
                 <div class="form-group" style="flex: 1;">
-                    <label>净值X轴边距比例</label>
+                    <label>净值X轴边距</label>
                     <input type="number" id="navMarginX" value="0.1" min="0" max="1" step="0.01"
                            onchange="ChartRenderer.config.marginX.nav = parseFloat(this.value); UIController.updateCharts();">
                 </div>
                 <div class="form-group" style="flex: 1;">
-                    <label>收益率Y轴边距比例</label>
+                    <label>收益率Y轴边距</label>
                     <input type="number" id="yieldMargin" value="1.0" min="0.1" max="10" step="0.1"
                            onchange="ChartRenderer.config.marginY.yield = parseFloat(this.value); UIController.updateCharts();">
                 </div>
