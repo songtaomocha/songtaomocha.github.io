@@ -467,11 +467,13 @@
         /* 在 style 标签最后添加以下移动端响应式样式 */
 
         @media screen and (max-width: 768px) {
-            /* 容器适配 */
+            /* 调整容器宽度，充分利用屏幕空间 */
             .container {
+                max-width: 100%;
                 padding: 10px;
                 margin: 0;
                 border-radius: 0;
+                box-shadow: none;
             }
             
             /* 标题适配 */
@@ -554,55 +556,54 @@
                 gap: 15px;
             }
             
+            /* 优化坐标系设置中的标签显示 */
             .chart-config .form-group {
                 display: grid;
-                grid-template-columns: 1fr 120px;
+                grid-template-columns: minmax(130px, 1.2fr) 100px; /* 调整列宽比例 */
                 gap: 10px;
-                width: 100%;
-                margin: 0;
+                align-items: center;
                 padding: 8px 0;
             }
             
             .chart-config .form-group label {
                 font-size: 14px;
-                margin: 0;
-                line-height: 44px; /* 与输入框高度一致 */
-                white-space: normal;
-                color: #666;
+                white-space: nowrap; /* 防止标签文字换行 */
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 44px;
+                padding-right: 5px;
             }
             
             .chart-config .form-group input {
-                width: 120px;
+                width: 100%;
+                min-width: 80px;
+                max-width: 100px;
                 height: 44px;
-                padding: 0 10px;
+                padding: 0 5px;
                 font-size: 16px;
                 text-align: center;
-                border: 1px solid #ddd;
-                border-radius: 4px;
             }
             
-            /* 按钮优化 */
+            /* 优化按钮样式 */
             .action-buttons {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
+                grid-template-columns: repeat(2, minmax(120px, 1fr));
+                gap: 10px;
                 padding: 15px 0;
+                margin: 0 auto;
+                max-width: 100%;
             }
             
             .action-buttons .btn {
-                margin: 0;
-                height: 44px;
-                font-size: 16px;
-                border-radius: 6px;
                 width: 100%;
-            }
-            
-            /* 确保按钮文字不换行 */
-            .action-buttons .btn {
+                height: 44px;
+                font-size: 15px;
+                padding: 0 10px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                padding: 0 15px;
+                border-radius: 4px;
+                margin: 0;
             }
             
             /* 日期输入适配 */
@@ -634,7 +635,7 @@
             }
         }
 
-        /* 针对超小屏幕的额外优化 */
+        /* 针对超小屏幕的特别优化 */
         @media screen and (max-width: 360px) {
             h1 {
                 font-size: 18px;
@@ -650,23 +651,30 @@
             }
             
             .chart-config .form-group {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* 在超小屏幕上改为垂直布局 */
                 gap: 5px;
             }
             
             .chart-config .form-group label {
+                white-space: normal; /* 允许文字换行 */
                 line-height: 1.4;
                 padding: 5px 0;
             }
             
             .chart-config .form-group input {
+                max-width: none;
                 width: 100%;
             }
             
-            /* 超小屏幕下按钮改为垂直排列 */
+            /* 超小屏幕下按钮垂直排列 */
             .action-buttons {
                 grid-template-columns: 1fr;
                 gap: 10px;
+                padding: 10px 0;
+            }
+            
+            .action-buttons .btn {
+                font-size: 14px;
             }
         }
 
